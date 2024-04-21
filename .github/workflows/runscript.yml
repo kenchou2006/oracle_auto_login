@@ -24,6 +24,12 @@ jobs:
         sudo apt-get install -y libxi6 libgconf-2-4
         echo "CHROMEDRIVER_PATH=/usr/bin/chromedriver" >> $GITHUB_ENV
 
+    - name: Install Chrome browser
+      run: |
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        sudo apt-get install -f
+
     - name: Run tests
       env:
         CLOUD_ACCOUNT_NAME: ${{ secrets.CLOUD_ACCOUNT_NAME }}
@@ -32,6 +38,5 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         OTP_SECRET_KEY: ${{ secrets.OTP_SECRET_KEY }}
       run: |
-        # Add this line to export chromedriver path
-        export PATH="$PATH:/usr/bin/chromedriver"
+        export CHROMEDRIVER_PATH=/usr/bin/chromedriver
         python oracle_auto_login.py
