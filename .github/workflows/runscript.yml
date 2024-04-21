@@ -1,4 +1,4 @@
-name: Oracle-Auto-Login
+name: Python Selenium Test
 
 on: [push]
 
@@ -10,10 +10,11 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.12
+        python-version: 3.8
 
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
         pip install selenium pyotp python-dotenv
 
     - name: Set up Chromedriver
@@ -21,7 +22,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y chromium-chromedriver
         sudo apt-get install -y libxi6 libgconf-2-4
-        sudo cp /usr/lib/chromium-browser/chromedriver /usr/bin
         echo "CHROMEDRIVER_PATH=/usr/bin/chromedriver" >> $GITHUB_ENV
 
     - name: Run tests
@@ -32,4 +32,6 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         OTP_SECRET_KEY: ${{ secrets.OTP_SECRET_KEY }}
       run: |
-        python oracle_auto_login.py
+        # Add this line to export chromedriver path
+        export PATH="$PATH:/usr/bin/chromedriver"
+        python your_test_script.py
