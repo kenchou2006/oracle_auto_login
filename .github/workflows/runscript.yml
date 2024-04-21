@@ -1,4 +1,4 @@
-name: Python Selenium Test
+name: oracle_auto_login
 
 on: [push]
 
@@ -34,4 +34,4 @@ jobs:
       run: |
         # Add this line to export chromedriver path
         export PATH="$PATH:/usr/bin/chromedriver"
-        python your_test_script.py
+        python oracle_auto_login.py
