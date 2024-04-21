@@ -20,7 +20,17 @@ otp_secret_key = os.getenv('OTP_SECRET_KEY')
 chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
-browser = webdriver.Chrome(options=chrome_options)
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+#For Github Action
+CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
+chrome_options.binary_location = "/usr/bin/google-chrome"
+webdriver_service = Service(CHROMEDRIVER_PATH)
+browser = webdriver.Chrome(service=webdriver_service, options=chrome_options)
+
+
+#browser = webdriver.Chrome(options=chrome_options)
 
 #browser = webdriver.Chrome()
 
